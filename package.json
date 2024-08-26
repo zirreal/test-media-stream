@@ -1,0 +1,27 @@
+{
+  "name": "test-media-stream-demo",
+  "version": "1.0.0",
+  "description": "",
+  "source": "index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zirreal/test-media-stream.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zirreal/test-media-stream/issues"
+  },
+  "homepage": "https://github.com/zirreal/test-media-stream#readme",
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  },
+  "dependencies": {
+    "whip-whep": "^1.2.0"
+  }
+}
