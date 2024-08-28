@@ -1,4 +1,4 @@
-import {CREATE_CONF, CONF_OWNER} from './config';
+import {CREATE_CONF} from './config';
 import { OBSWebSocket } from 'obs-websocket-js';
 
 const obs = new OBSWebSocket();
@@ -43,7 +43,7 @@ export const createConference = async (payload) => {
 
 
 const activateConferenceLink = async () => {
-  const url = `https://video.multi-agent.io/api/v3.9/software/clients?access_token=${process.env.CONF_TOKEN}&call_id=${id}&user=${CONF_OWNER}`;
+  const url = `https://video.multi-agent.io/api/v3.9/software/clients?access_token=${process.env.CONF_TOKEN}&call_id=${id}&user=2$guest*GuestUser`;
 
   try {
     const res = await fetch(url)
