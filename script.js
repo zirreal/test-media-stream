@@ -1,6 +1,7 @@
 import { WHIPClient } from 'whip-whep/whip';
 
-import {WS_API_URL, SOURCE_URL, CAM_URL, GO2RTC_API} from './config';
+import {WS_API_URL, SOURCE_URL, CAM_URL, GO2RTC_API, CONF_OBJECT} from './config';
+import {createConference, startConference, stopConference} from './api';
 
 window.addEventListener("DOMContentLoaded", async function() {
   var canvas = document.querySelector("canvas"),
@@ -9,6 +10,10 @@ window.addEventListener("DOMContentLoaded", async function() {
       canvasCam = document.querySelector('#canvasCam'),
       canvasSource= document.querySelector('#canvasSource')
   ;
+
+
+  const startButton = document.querySelector('.btn--start');
+  const finishButton = document.querySelector('.btn--finish');
 
 
   async function PeerConnection(media, selector) {
@@ -86,7 +91,7 @@ connect(media || 'video+audio', SOURCE_URL, 'canvasSource'); // second argument 
 connect(media || 'video+audio', CAM_URL, 'canvasCam');
 
 
-async function testStreamMerge() {
+async function streamMerged() {
   let streamtest;
 
     streamtest = canvas.captureStream();
@@ -112,9 +117,6 @@ async function testStreamMerge() {
   requestAnimationFrame(drawcanvas);
 }
 
-testStreamMerge();
-
-
 function drawcanvas(){
 
     // caculate size and position of small corner-vid (you may change it as you like)
@@ -122,7 +124,28 @@ function drawcanvas(){
     context.drawImage(canvasSource, 10, 10, 40, 40); // small video in the left corner
     // do the same thing again at next screen paint
     requestAnimationFrame( drawcanvas );
-  }
+}
+
+streamMerged();
+
+// trueConf
+startButton.addEventListener('click', async () => {
+
+    await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+
+        
+    await createConference(CONF_OBJECT);
+    await startConference();
+})
+
+
+finishButton.addEventListener('click', async () => {
+   await stopConference();
+})
+
 
 }, false);
+
+
+
 

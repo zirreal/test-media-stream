@@ -6,9 +6,19 @@
          <script defer="" type="module" src="script.js"></script>
     </head>
     <body>
-        <canvas height="250" width="400"></canvas>
-        <video height="250" width="400" id="videostream" playsinline autoplay muted></video>
-        <video height="250" width="400" id="canvasSource" playsinline autoplay muted></video>
-        <video height="250" width="400" id="canvasCam" playsinline autoplay muted></video>
+        <div class="container">
+            <div class="video-container">
+                <canvas class="hide" height="250" width="400"></canvas>
+                <video height="250" width="400" id="canvasSource" playsinline autoplay muted></video>
+                <video height="250" width="400" id="canvasCam" playsinline autoplay muted></video>
+                <video height="250" width="400" id="videostream" playsinline autoplay muted></video>
+                <iframe allowusermedia class="hide" id="iframe-trueconf" width="400px" height="250px" allow="camera *; microphone *"/>
+            </div>
+
+            <div class="buttons-container">
+                <button class="btn btn--start">START</button>
+                <button class="btn btn--finish">FINISH</button>
+            </div>
+        </div>
     </body>
 </html>
