@@ -88,7 +88,7 @@ async function connect(media, location, selector) {
 const media = new URLSearchParams(location.search).get('media');
 // creating canvases of streams that needed to be merged
 connect(media || 'video+audio', SOURCE_URL, 'canvasSource'); // second argument is stream url, third - html selector name (id);
-connect(media || 'video+audio', CAM_URL, 'canvasCam');
+connect(media || 'camera+microphone', CAM_URL, 'canvasCam');
 
 
 async function streamMerged() {

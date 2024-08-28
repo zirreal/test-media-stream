@@ -1,4 +1,4 @@
-import {CREATE_CONF} from './config';
+import {CREATE_CONF, CONF_OWNER} from './config';
 import { OBSWebSocket } from 'obs-websocket-js';
 
 const obs = new OBSWebSocket();
@@ -17,9 +17,10 @@ const connectingOBS = async (command) => {
     await obs.call(command);
     console.log(`Connected to server ${obsWebSocketVersion} (using RPC ${negotiatedRpcVersion}) and executed ${command}`)
 
-    await obs.disconnect();
   } catch (error) {
     console.error('Failed to connect', error.code, error.message);
+  } finally {
+    await obs.disconnect();
   }
 }
 
@@ -30,10 +31,10 @@ export const createConference = async (payload) => {
       body: JSON.stringify(payload)
     })
 
+    await connectingOBS('StartVirtualCam');
+
     const response = await res.json();
     id = response.conference.id;
-
-    await connectingOBS('StartVirtualCam');
 
   } catch(e) {
     console.log('error -> ', e)
@@ -42,7 +43,7 @@ export const createConference = async (payload) => {
 
 
 const activateConferenceLink = async () => {
-  const url = `https://video.multi-agent.io/api/v3.9/software/clients?access_token=${process.env.CONF_TOKEN}&call_id=${id}&user=test1`;
+  const url = `https://video.multi-agent.io/api/v3.9/software/clients?access_token=${process.env.CONF_TOKEN}&call_id=${id}&user=${CONF_OWNER}`;
 
   try {
     const res = await fetch(url)

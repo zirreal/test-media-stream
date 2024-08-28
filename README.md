@@ -4,6 +4,7 @@
 
 - [parcel](https://parceljs.org/) - для удобства сборки 🙈
 - [whip-whep](https://www.npmjs.com/package/whip-whep) - для работы с OBS
+- [obs-websocket-js](https://www.npmjs.com/package/obs-websocket-js) - для работы с OBS
 
 ### Конфиг
 
