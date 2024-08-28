@@ -11,7 +11,8 @@ export const
   max_participants: 5,
   invitations: [{id: 'test1'}],
   schedule: {"type":-1},
-  owner: "test1"
+  owner: "test1",
+  allow_guests: true,
  } // trueconf conference object to start conf
 ;
 

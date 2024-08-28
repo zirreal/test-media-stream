@@ -18,6 +18,31 @@ export const createConference = async (payload) => {
 }
 
 
+const activateConferenceLink = async () => {
+  const url = `https://video.multi-agent.io/api/v3.9/software/clients?access_token=${process.env.CONF_TOKEN}&call_id=${id}&user=test1`;
+
+  try {
+    const res = await fetch(url)
+
+    const response = await res.json();
+
+    let webUrl = '';
+
+    response.clients.map(el => {
+      if(el.name === "TrueConf Web") {
+        webUrl = el.web_url
+      }
+    })
+
+    return webUrl;
+
+  } catch(e) {
+    console.log('error -> ', e)
+  }
+
+}
+
+
 export const startConference = async () => {
   const iframe = document.querySelector('#iframe-trueconf');
   try {
@@ -29,13 +54,15 @@ export const startConference = async () => {
 
     console.log(response, ' => conference has started');
 
+    const webUrl = await activateConferenceLink()
 
     iframe.classList.remove('hide')
-    iframe.src = `https://video.multi-agent.io/webrtc/${id}#login=*guest2*webguest*guest2&token=$2dcee89b80bf8682c45f04d59b2dba27a*1724330878*cd31e9570451edc00d7608e2b9017cb7&lang=auto`;
-
+    iframe.src = webUrl;
+    
 
   } catch(e) {
     console.log('error -> ', e)
+  } finally {
   }
 }
 
