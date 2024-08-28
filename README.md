@@ -13,8 +13,8 @@
 
 ### TrueConf
 
-- В файле `api.js` расположены запросы к апи trueconf. Для правильной работы запросов необходимо создать файл **.env** c переменной `CONF_TOKEN`
-Например: `CONF_TOKEN = 00abc00000x`
+- В файле `api.js` расположены запросы к апи trueconf. Для правильной работы запросов необходимо создать файл **.env** c переменными `CONF_TOKEN` (токен доступа), OBS_WEBSOCKET (obs websocket), OBS_WS_PASS (obs websocket пароль)
+Например: `CONF_TOKEN = 00abc00000x`, `OBS_WEBSOCKET=ws://127.0.0.1:4455`, `OBS_WS_PASS=11111111`
 
 
 И потом запускаем командой -  `npm run start`

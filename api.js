@@ -1,6 +1,27 @@
 import {CREATE_CONF} from './config';
+import { OBSWebSocket } from 'obs-websocket-js';
 
+const obs = new OBSWebSocket();
 let id = '';
+
+
+const connectingOBS = async (command) => {
+  try {
+    const {
+      obsWebSocketVersion,
+      negotiatedRpcVersion
+    } = await obs.connect(process.env.OBS_WEBSOCKET, process.env.OBS_WS_PASS, {
+      rpcVersion: 1
+    });
+
+    await obs.call(command);
+    console.log(`Connected to server ${obsWebSocketVersion} (using RPC ${negotiatedRpcVersion}) and executed ${command}`)
+
+    await obs.disconnect();
+  } catch (error) {
+    console.error('Failed to connect', error.code, error.message);
+  }
+}
 
 export const createConference = async (payload) => {
   try {
@@ -11,6 +32,8 @@ export const createConference = async (payload) => {
 
     const response = await res.json();
     id = response.conference.id;
+
+    await connectingOBS('StartVirtualCam');
 
   } catch(e) {
     console.log('error -> ', e)
@@ -78,6 +101,8 @@ export const stopConference = async () => {
     const response = await res.json();
 
     console.log(response, ' => conference has ended');
+
+    await connectingOBS('StopVirtualCam');
 
     await deleteConference()
 
